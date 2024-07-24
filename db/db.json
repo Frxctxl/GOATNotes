@@ -1,6 +1,1 @@
-[
-    {
-        "title":"Test Title",
-        "text":"Test text"
-    }
-]
+[{"title":"Test Title","text":"Test text"},{"title":"Its the first note","text":"Moment of Truth","id":"3ebe1f69-4cbc-4b77-8cad-11b0404d333e"},{"title":"Second Note","text":"Here we go","id":"8bb56f68-aae9-414b-940d-027cb1befdcb"}]
