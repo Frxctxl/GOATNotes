@@ -2,15 +2,19 @@ const router = require('express').Router();
 const fs = require('fs').promises;
 const uuid = require('uuid');
 
-router.get('/notes', async (req, res) => {
-
+async function getNotes() {
   const data = await fs.readFile('./db/db.json', 'utf8');
-  res.json(JSON.parse(data));
+  return JSON.parse(data);
+}
+
+router.get('/notes', async (req, res) => {
+  const notes = await getNotes();
+
+  res.json(notes);
 })
 
 router.post('/notes', async (req, res) => {
-  const data = await fs.readFile('./db/db.json', 'utf8');
-  const notes = JSON.parse(data);
+  const notes = await getNotes();
 
   const newNote = {
     title: req.body.title,
@@ -22,7 +26,6 @@ router.post('/notes', async (req, res) => {
   await fs.writeFile('./db/db.json', JSON.stringify(notes));
 
   res.send(newNote);
-
 })
 
 module.exports = router;
