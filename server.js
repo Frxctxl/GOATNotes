@@ -3,7 +3,7 @@ const path = require('path');
 
 const app = express();
 
-app.use('/api', require('./public/routes'));
+// app.use('/api', require('./public/routes'));
 
 app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, './public/notes.html'));
