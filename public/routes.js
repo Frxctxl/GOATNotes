@@ -28,4 +28,12 @@ router.post('/notes', async (req, res) => {
   res.send(newNote);
 })
 
+router.delete('/notes/:id', async (req, res) => {
+  const notes = await getNotes();
+  const newArr = notes.filter((note) => note.id !== req.params.id);
+
+  await fs.writeFile('./db/db.json', JSON.stringify(newArr));
+  res.send();
+})
+
 module.exports = router;
