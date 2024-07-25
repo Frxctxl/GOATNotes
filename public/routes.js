@@ -1,11 +1,7 @@
 const router = require('express').Router();
-const fs = require('fs').promises;
 const uuid = require('uuid');
 
-async function getNotes() {
-  const data = await fs.readFile('./db/db.json', 'utf8');
-  return JSON.parse(data);
-}
+const { getNotes, writeNotes } = require('../db');
 
 router.get('/notes', async (req, res) => {
   const notes = await getNotes();
@@ -23,7 +19,7 @@ router.post('/notes', async (req, res) => {
   };
 
   notes.push(newNote);
-  await fs.writeFile('./db/db.json', JSON.stringify(notes));
+  await writeNotes(notes);
 
   res.send(newNote);
 })
@@ -32,7 +28,7 @@ router.delete('/notes/:id', async (req, res) => {
   const notes = await getNotes();
   const newArr = notes.filter((note) => note.id !== req.params.id);
 
-  await fs.writeFile('./db/db.json', JSON.stringify(newArr));
+  await writeNotes(newArr);
   res.send();
 })
 
